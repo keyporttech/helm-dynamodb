@@ -43,6 +43,7 @@ ingress:
   - secretName: dynamodb-tls
     hosts:
       - dynamodb.myhost.com
+```
 
 ### Storage
 
