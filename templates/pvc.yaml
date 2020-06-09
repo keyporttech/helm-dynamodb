@@ -1,0 +1,19 @@
+{{- if eq .Values.storageType "pvc" }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dynamodb
+  labels:
+    version: "{{ .Chart.AppVersion }}"
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.storage }}
+    {{- if .Values.storageClass }}
+    storageClassName: {{ .Values.storageClass | quote }}
+    {{- end }}
+{{- end }}

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dynamodb-helm-chart.fullname" . }}
+  labels:
+    {{- include "dynamodb-helm-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: dynamodb
+    - port: 8001
+      targetPort: 8001
+      protocol: TCP
+      name: admin
+  selector:
+    {{- include "dynamodb-helm-chart.selectorLabels" . | nindent 4 }}
