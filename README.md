@@ -1,6 +1,6 @@
 # Dynamodb helm chart
 
-This helm chart converts [Amazon's dynamodb-local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html) into a k8s deployable application. It creates a 2 container pod with one running a dynamodb table and the other running a [dynamodb admin app] (https://github.com/aaronshaf/dynamodb-admin)
+This helm chart converts [Amazon's dynamodb-local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html) into a k8s deployable application. It creates a 2 container pod with one running a dynamodb table and the other running a [dynamodb admin app](https://github.com/aaronshaf/dynamodb-admin)
 
 The intent is to provide a quick easy way to enable a local dynamo db instance.
 
