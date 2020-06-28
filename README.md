@@ -2,13 +2,13 @@
 
 This helm chart converts [Amazon's dynamodb-local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html) into a k8s deployable application. It creates a 2 container pod with one running a dynamodb table and the other running a [dynamodb admin app](https://github.com/aaronshaf/dynamodb-admin)
 
-The intent is to provide a quick easy way to enable a local dynamo db instance.
+The intent is to provide a quick easy way to enable a local dynamo db instance for local development/testing.
 
 ## Install
 
 ```bash
-helm add repo keyporttech https://helm.keyporttech.com
-helm install keyporttech/dynamo-db
+helm repo add keyporttech https://keyporttech.github.io/helm-charts/
+helm install my-release keyporttech/dynamo-db
 ```
 
 or clone this repo and install from the file system.
@@ -51,7 +51,7 @@ This chart allows for 3 types of storage: pvc, directVolume, and emptyDir set vi
 
 If no configuration is provided the chart will store data on the node using emptyDir.
 
-If storageType is set to directVolume then directVolume msut be set.
+If storageType is set to directVolume then directVolume msut be set in the chart vaules.
 
 Example:
 
@@ -62,9 +62,78 @@ directVolume:
     path: "/dynamodb-data"
 ```
 
-If strorge type is set to nfs then the follow is needed:
+The following is an example of storage type pvc:
 
 ```yaml
 storage: "500Mi"
 storageClassName: ""
 ```
+
+| Parameter                  | Description                                     | Default                                                    |
+| -----------------------    | ---------------------------------------------   | ---------------------------------------------------------- |
+| `dynamodb.image.repository`                    | `dynamo db local` image                     | `amazon/dynamodb-local`
+  |
+| `dynamodb.image.pullPolicy`                    | `image pull policy`                     | `IfNotPresent`
+  |  
+| `dynamodb.image.tag`                    | `image tag`                     | `1.12.0`
+  |
+| `admin.image.repository`                    | `admin web UI` image                     | `aaronshaf/dynamodb-admin`
+  |
+| `admin.image.pullPolicy`                    | `image pull policy`                     | `IfNotPresent`
+  |  
+| `admin.image.tag`                    | `image tag`                     | `latest`
+  |
+| `imagePullSecrets`                    | `image pull secrets`                     | ``
+  |
+| `nameOverride`                    | `name override`                     | ``
+  |
+| `fullnameOverride`                    | `fullname override`                     | ``
+  |
+| `serviceAccount.create`                    | `creates service account if true`                     | `true`
+  |
+| `serviceAccount.annotations`                    | `service account annotations if created`                     | ``
+  |
+| `serviceAccount.name`                    | `service account name if created`                     | ``
+  |
+| `podAnnotations`                    | `pod annotations`                     | ``
+  |
+| `podSecurityContext`                    | `pod security context`                     | ``
+  |
+| `securityContext`                    | `security context`                     | ``
+  |
+| `service.type`                    | `k8s service type`                     | `ClusterIP`
+  |
+| `ingress.enabled`                    | `enable ingress`                     | `false`
+  |
+| `ingress.annotations                    | `ingress annotations`                     | `{}`
+  |
+| `ingress.tls`                    | `list of tls secret names and known_hosts`                     | `[]`
+  |
+| `ingress.host`                    | `ingress host`                     | ``
+  |
+| `autoscaling.enabled`                    | `enable autoscaling`                     | `false`
+  |
+| `autoscaling.minReplicas`                    | `min replicas`                     | `1`
+|
+| `autoscaling.maxReplicas`                    | `max replicas`                     | `100`
+|
+| `autoscaling.targetCPUUtilizationPercentage`                    | `autoscaling target CPU`                     | `80`
+|
+| `autoscaling.targetMemoryUtilizationPercentage`                    | `autoscaling target memory`                     | `unset`
+|
+| `resources`                    | `pod resources`                     | `[]`
+  |
+| `nodeSelector`                    | `node selector`                     | `{}`
+  |
+| `tolerations`                    | `node selector`                     | `[]`
+  |
+| `affinity`                    | `affinity`                     | `{}`
+  |
+| `storageType                    | `type of storage pvc, directVolume emptyDir`                     | `emptyDir`
+  |
+| `storage                    | `size of pvc storage`                     | `unset`
+|
+| `storageClassName`                    | `pvc storage class name`                     | `unset`
+|
+| `directVolume`                    | `yaml definings k8s volume`                     | `unset`
+  |
