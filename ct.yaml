@@ -1,7 +1,7 @@
 # See https://github.com/helm/chart-testing#configuration
 remote: origin
 chart-dirs:
-  - charts
+  - helm-charts/charts
 chart-repos:
   - keyporttech=https://keyporttech.github.io/helm-charts
 helm-extra-args: --timeout 600s
