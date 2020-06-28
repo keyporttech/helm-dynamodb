@@ -19,28 +19,34 @@ lint:
 	@echo "linting..."
 	helm lint
 	helm template test ./
+	docker run -it -v `pwd`:/helm-chart -w /helm-chart registry.keyporttech.com:30243/chart-testing:0.1.3 ct lint-and-install
 .PHONY: lint
 
 test:
 	@echo "testing..."
-	helm test
+	docker run -it -v `pwd`:/helm-chart -w /helm-chart registry.keyporttech.com:30243/chart-testing:0.1.3 ct lint
 	@echo "OK"
 .PHONY: test
 
-build: lint
+build: lint test
 
 .PHONY: build
 
 publish-local-registry:
-	export HELM_EXPERIMENTAL_OCI=1
 	REGISTRY_TAG=${REGISTRY}/${CHART}:${VERSION}
 	@echo "publishing to ${REGISTRY_TAG}"
-	helm chart save ./ ${REGISTRY_TAG}
+	HELM_EXPERIMENTAL_OCI=1 helm chart save ./ ${REGISTRY_TAG}
 	# helm chart export  ${REGISTRY_TAG}
-	helm chart push ${REGISTRY_TAG}
+	HELM_EXPERIMENTAL_OCI=1 helm chart push ${REGISTRY_TAG}
 	@echo "OK"
 .PHONY: publish-local-registry
 
-deploy: publish-local-registry
+publish-public-repository:
+	helm package .
+	docker run -it -v `pwd`:/helm-chart -w /helm-chart registry.keyporttech.com:30243/chart-testing:0.1.3 upload --token ${GITHUB_TOKEN}
+.PHONY: publish-public-repository
 
-.PHONY: build
+deploy: publish-local-registry publish-public-repository
+	git remote add upstream https://github.com/keyporttech/helm-dynamodb.git
+	git push upstream master
+.PHONY:deploy

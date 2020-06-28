@@ -81,16 +81,16 @@ tolerations: []
 
 affinity: {}
 
-#type of storage pvc, directVolume -defaults to emptyDir
+# type of storage pvc, directVolume -defaults to emptyDir
 storageType: emptyDir
 
 # example pvc values
-#storage: "500Mi"
-#storageClassName: ""
-#buildID: "123"
+# storage: "500Mi"
+# storageClassName: ""
+# buildID: "123"
 
 # example directVolume mount values
-#directVolume:
-#  nfs:
-#    server: 10.10.10.10
-#    path: "/dynamodb-data"
+# directVolume:
+#   nfs:
+#     server: 10.10.10.10
+#     path: "/dynamodb-data"

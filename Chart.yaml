@@ -1,6 +1,7 @@
 apiVersion: v2
 name: dynamodb
 description: A Helm chart for running amazon dynamo db on a kubernetes cluster
+home: https://github.com/keyporttech/helm-dynamodb
 
 #
 # Library charts provide useful utilities or functions for the chart developer. They're included as
@@ -11,7 +12,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.0
+version: 0.1.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -20,3 +21,8 @@ appVersion: 1.12.0
 
 sources:
   - https://github.com/aaronshaf/dynamodb-admin
+
+maintainers:
+  - name: keyporttech
+    email: github@keyporttech.com
+    url: https://github.com/keyporttech/helm-charts

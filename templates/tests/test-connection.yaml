@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "dynamodb-helm-chart.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "dynamodb-helm-chart.fullname" . }}:8001']
   restartPolicy: Never
