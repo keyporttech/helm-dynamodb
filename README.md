@@ -20,7 +20,7 @@ or clone this repo and install from the file system.
 
 # Contributing
 
-Contributions are welcomed, but please note the all pull-requests must Pass CI. The Makefile contains targets that execute cicd tooling locally. This includes the chart-testing and chart-release tooling provided by helm.
+Contributions are welcome, but please note that all pull-requests must Pass CI. The Makefile contains targets that execute cicd tooling locally. This includes the [chart-testing](https://github.com/helm/chart-testing) and [chart-releaser](https://github.com/helm/chart-releaser) tooling provided by helm.
 
 ```
   make build
