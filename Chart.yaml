@@ -9,7 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: v2
+apiVersion: v5
 name: dynamodb
 description: A Helm chart for running amazon dynamo db on a kubernetes cluster
 home: https://github.com/keyporttech/helm-dynamodb
