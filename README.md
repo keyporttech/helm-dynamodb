@@ -4,6 +4,11 @@ This helm chart converts [Amazon's dynamodb-local](https://docs.aws.amazon.com/a
 
 The intent is to provide a quick easy way to enable a local dynamo db instance for local development/testing.
 
+## prerequisites
+
+* helm 3
+@ a modern working k8s cluster
+
 ## Install
 
 ```bash
@@ -12,6 +17,14 @@ helm install my-release keyporttech/dynamo-db
 ```
 
 or clone this repo and install from the file system.
+
+# Contributing
+
+Contributions are welcomed, but please note the all pull-requests must Pass CI. The Makefile contains targets that execute cicd tooling locally. This includes the chart-testing and chart-release tooling provided by helm.
+
+```
+  make build
+```
 
 ## Values.yaml Configuration
 
