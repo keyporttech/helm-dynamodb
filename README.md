@@ -15,7 +15,6 @@ The intent is to provide a quick easy way to enable a local dynamo db instance f
 helm repo add keyporttech https://keyporttech.github.io/helm-charts/
 helm install my-release keyporttech/dynamo-db
 ```
-
 or clone this repo and install from the file system.
 
 # Contributing
