@@ -105,7 +105,7 @@ storageClassName: ""
   |
 | `ingress.enabled`                    | `enable ingress`                     | `false`
   |
-| `ingress.annotations                    | `ingress annotations`                     | `{}`
+| `ingress.annotations'                    | `ingress annotations`                     | `{}`
   |
 | `ingress.tls`                    | `list of tls secret names and known_hosts`                     | `[]`
   |
@@ -129,9 +129,9 @@ storageClassName: ""
   |
 | `affinity`                    | `affinity`                     | `{}`
   |
-| `storageType                    | `type of storage pvc, directVolume emptyDir`                     | `emptyDir`
+| `storageType`                    | `type of storage pvc, directVolume emptyDir`                     | `emptyDir`
   |
-| `storage                    | `size of pvc storage`                     | `unset`
+| `storage`                    | `size of pvc storage`                     | `unset`
 |
 | `storageClassName`                    | `pvc storage class name`                     | `unset`
 |
