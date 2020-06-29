@@ -19,12 +19,12 @@ lint:
 	@echo "linting..."
 	helm lint
 	helm template test ./
-	docker run -it -v `pwd`:/charts/$(chart) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; ct lint;"
+	docker run -it -v `pwd`:/charts/$(chart) -w /charts/$(chart) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; ct lint;"
 .PHONY: lint
 
 test:
 	@echo "testing..."
-	docker run -it -v ~/.kube:/root/.kube -v `pwd`:/charts/$(chart) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; ct lint-and-install;"
+	docker run -it -v ~/.kube:/root/.kube -v `pwd`:/charts/$(chart)-w /charts/$(chart) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; ct lint-and-install;"
 	@echo "OK"
 .PHONY: test
 
@@ -43,7 +43,7 @@ publish-local-registry:
 
 publish-public-repository:
 	helm package .
-	docker run -it -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; cr upload --token ${GITHUB_TOKEN};"
+	docker run -it -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(CHART) helm-charts/charts; cd helm-charts; cr upload --token ${GITHUB_TOKEN};"
 .PHONY: publish-public-repository
 
 deploy: publish-local-registry publish-public-repository
