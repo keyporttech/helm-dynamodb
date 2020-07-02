@@ -15,12 +15,13 @@ CHART=dynamodb
 VERSION = $(shell yq r Chart.yaml 'version')
 RELEASED_VERSION = $(shell helm show chart keyporttech/dynamodb | yq - read 'version')
 REGISTRY_TAG=${REGISTRY}/${CHART}:${VERSION}
+CWD = $(shell pwd)
 
 lint:
 	@echo "linting..."
 	helm lint
 	helm template test ./
-	docker run -v `pwd`:/helm -w /helm registry.keyporttech.com:30243/chart-testing:0.1.4 bash -c "ct lint --validate-maintainers=false  --charts ./ ;"
+	docker run -v $(CWD):/helm -w /helm registry.keyporttech.com:30243/chart-testing:0.1.4 bash -c "ct lint --validate-maintainers=false  --charts ./ ;"
 
 ifeq ($(VERSION),$(RELEASED_VERSION))
 	echo "$(VERSION) must be > $(RELEASED_VERSION). Please bump chart version."
