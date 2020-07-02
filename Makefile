@@ -13,18 +13,25 @@ REGISTRY=registry.keyporttech.com:30243
 DOCKERHUB_REGISTRY="keyporttech"
 CHART=dynamodb
 VERSION = $(shell yq r Chart.yaml 'version')
+RELEASED_VERSION = $(shell helm show chart keyporttech/dynamodb | yq - read 'version')
 REGISTRY_TAG=${REGISTRY}/${CHART}:${VERSION}
 
 lint:
 	@echo "linting..."
 	helm lint
 	helm template test ./
-	docker run -it -v `pwd`:/charts/$(chart) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; ct lint;"
+	docker run -it -v `pwd`:/helm -w /helm registry.keyporttech.com:30243/chart-testing:0.1.4 bash -c "ct lint --validate-maintainers=false  --charts ./ ;"
+
+ifeq ($(VERSION),$(RELEASED_VERSION))
+	echo "$(VERSION) must be > $(RELEASED_VERSION). Please bump chart version."
+	exit 1
+endif
+
 .PHONY: lint
 
 test:
 	@echo "testing..."
-	docker run -it -v ~/.kube:/root/.kube -v `pwd`:/charts/$(chart) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; ct lint-and-install;"
+	docker run -it -v ~/.kube:/root/.kube -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone git@github.com:keyporttech/helm-charts.git; cp -rf /charts/$(CHART) helm-charts/charts; cd helm-charts; ct lint-and-install;"
 	@echo "OK"
 .PHONY: test
 
@@ -42,8 +49,11 @@ publish-local-registry:
 .PHONY: publish-local-registry
 
 publish-public-repository:
-	helm package .
-	docker run -it -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone https://github.com/keyporttech/helm-charts.git; cp -rf /charts/$(chart) helm-charts/charts; cd helm-charts; cr upload --token ${GITHUB_TOKEN};"
+	docker run -it -e GITHUB_TOKEN=${GITHUB_TOKEN} -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.4 bash -cx " \
+		echo $GITHUB_TOKEN; \
+		curl -o releaseChart.sh https://raw.githubusercontent.com/keyporttech/helm-charts/master/scripts/releaseChart.sh; \
+		chmod +x releaseChart.sh; \
+		./releaseChart.sh $(CHART) $(VERSION) /charts/$(CHART);"
 .PHONY: publish-public-repository
 
 deploy: publish-local-registry publish-public-repository
