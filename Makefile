@@ -32,7 +32,7 @@ endif
 
 test:
 	@echo "testing..."
-	docker run -v ~/.kube:/root/.kube -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.3 bash -c "git clone git@github.com:keyporttech/helm-charts.git; cp -rf /charts/$(CHART) helm-charts/charts; cd helm-charts; ct lint-and-install;"
+	ct install --charts .
 	@echo "OK"
 .PHONY: test
 
