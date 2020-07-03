@@ -13,7 +13,7 @@ REGISTRY=registry.keyporttech.com:30243
 DOCKERHUB_REGISTRY="keyporttech"
 CHART=dynamodb
 VERSION = $(shell yq r Chart.yaml 'version')
-RELEASED_VERSION = $(shell helm show chart keyporttech/dynamodb | yq - read 'version')
+RELEASED_VERSION = $(shell helm repo add keyporttech https://keyporttech.github.io/helm-charts/ && helm show chart keyporttech/dynamodb | yq - read 'version')
 REGISTRY_TAG=${REGISTRY}/${CHART}:${VERSION}
 CWD = $(shell pwd)
 
@@ -21,7 +21,7 @@ lint:
 	@echo "linting..."
 	helm lint
 	helm template test ./
-	docker run -v $(CWD):/helm -w /helm registry.keyporttech.com:30243/chart-testing:0.1.4 bash -c "ct lint --validate-maintainers=false  --charts ./ ;"
+	ct lint --validate-maintainers=false --charts .
 
 ifeq ($(VERSION),$(RELEASED_VERSION))
 	echo "$(VERSION) must be > $(RELEASED_VERSION). Please bump chart version."
@@ -50,11 +50,12 @@ publish-local-registry:
 .PHONY: publish-local-registry
 
 publish-public-repository:
-	docker run -e GITHUB_TOKEN=${GITHUB_TOKEN} -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.4 bash -cx " \
-		echo $GITHUB_TOKEN; \
-		curl -o releaseChart.sh https://raw.githubusercontent.com/keyporttech/helm-charts/master/scripts/releaseChart.sh; \
-		chmod +x releaseChart.sh; \
-		./releaseChart.sh $(CHART) $(VERSION) /charts/$(CHART);"
+	#docker run -e GITHUB_TOKEN=${GITHUB_TOKEN} -v `pwd`:/charts/$(CHART) registry.keyporttech.com:30243/chart-testing:0.1.4 bash -cx " \
+	#	echo $GITHUB_TOKEN; \
+	helm package .;
+	curl -o releaseChart.sh https://raw.githubusercontent.com/keyporttech/helm-charts/master/scripts/releaseChart.sh; \
+	chmod +x releaseChart.sh; \
+	./releaseChart.sh $(CHART) $(VERSION) .;
 .PHONY: publish-public-repository
 
 deploy: publish-local-registry publish-public-repository
