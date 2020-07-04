@@ -62,5 +62,6 @@ publish-public-repository:
 
 deploy: publish-local-registry publish-public-repository
 	git remote add upstream https://github.com/keyporttech/helm-$(CHART).git
+	git pull upstream master
 	git push upstream master
 .PHONY:deploy
