@@ -13,7 +13,7 @@ REGISTRY=registry.keyporttech.com:30243
 DOCKERHUB_REGISTRY="keyporttech"
 CHART=dynamodb
 VERSION = $(shell yq r Chart.yaml 'version')
-RELEASED_VERSION = $(shell helm repo add keyporttech https://keyporttech.github.io/helm-charts/ && helm show chart keyporttech/dynamodb | yq - read 'version')
+RELEASED_VERSION = $(shell helm repo add keyporttech https://keyporttech.github.io/helm-charts/ > /dev/null && helm show chart keyporttech/dynamodb | yq - read 'version')
 REGISTRY_TAG=${REGISTRY}/${CHART}:${VERSION}
 CWD = $(shell pwd)
 
@@ -22,6 +22,8 @@ lint:
 	helm lint
 	helm template test ./
 	ct lint --validate-maintainers=false --charts .
+	echo "NEW CHART VERISION=$(VERSION)"
+	echo "CURRENT RELEASED CHART VERSION=$(RELEASED_VERSION)"
 
 ifeq ($(VERSION),$(RELEASED_VERSION))
 	echo "$(VERSION) must be > $(RELEASED_VERSION). Please bump chart version."
