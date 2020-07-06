@@ -13,9 +13,10 @@ REGISTRY=registry.keyporttech.com:30243
 DOCKERHUB_REGISTRY="keyporttech"
 CHART=dynamodb
 VERSION = $(shell yq r Chart.yaml 'version')
-RELEASED_VERSION = $(shell helm repo add keyporttech https://keyporttech.github.io/helm-charts/ > /dev/null && helm show chart keyporttech/dynamodb | yq - read 'version')
+RELEASED_VERSION = $(shell helm repo add keyporttech https://keyporttech.github.io/helm-charts/ > /dev/null && helm repo update> /dev/null && helm show chart keyporttech/dynamodb | yq - read 'version')
 REGISTRY_TAG=${REGISTRY}/${CHART}:${VERSION}
 CWD = $(shell pwd)
+CURRENT_BRANCH = $(shell git symbolic-ref --short HEAD)
 
 lint:
 	@echo "linting..."
@@ -66,5 +67,5 @@ deploy: publish-local-registry publish-public-repository
 	git config --global user.email "bot@keyporttech.com"
 	git config --global user.name "keyporttech-bot"
 	git fetch upstream master
-	git push -u upstream HEAD:master --force-with-lease
+	git push -u upstream $(CURRENT_BRANCH):master --force-with-lease
 .PHONY:deploy
