@@ -60,6 +60,7 @@ publish-public-repository:
 	./releaseChart.sh $(CHART) $(VERSION) .;
 .PHONY: publish-public-repository
 
+
 deploy: publish-local-registry publish-public-repository
 	git remote add upstream git@github.com:keyporttech/helm-$(CHART).git
 	git config --global user.email "bot@keyporttech.com"
