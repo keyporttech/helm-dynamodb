@@ -65,5 +65,5 @@ deploy: publish-local-registry publish-public-repository
 	git config --global user.email "bot@keyporttech.com"
 	git config --global user.name "keyporttech-bot"
 	git fetch upstream master
-	git push -u upstream master --force-with-lease
+	git push -u upstream HEAD:master --force-with-lease
 .PHONY:deploy
