@@ -81,6 +81,7 @@ storage: "500Mi"
 storageClassName: ""
 ```
 
+
 | Parameter                  | Description                                     | Default                                                    |
 | -----------------------    | ---------------------------------------------   | ---------------------------------------------------------- |
 | `dynamodb.image.repository`                    | `dynamo db local` image                     | `amazon/dynamodb-local`
