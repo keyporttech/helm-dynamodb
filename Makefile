@@ -40,7 +40,7 @@ test:
 .PHONY: test
 
 build: lint test
-	tail -f /dev/null
+
 .PHONY: build
 
 publish-local-registry:
