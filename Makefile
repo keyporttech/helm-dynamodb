@@ -67,5 +67,5 @@ deploy: publish-local-registry publish-public-repository
 	git config --global user.name "keyporttech-bot"
 	git fetch upstream master
 	git fetch origin --unshallow
-	git push -u upstream $(CURRENT_BRANCH):master --force-with-lease
+	git push -u upstream master:master --force-with-lease
 .PHONY:deploy
