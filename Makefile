@@ -16,7 +16,7 @@ VERSION = $(shell yq r Chart.yaml 'version')
 RELEASED_VERSION = $(shell helm repo add keyporttech https://keyporttech.github.io/helm-charts/ > /dev/null && helm repo update> /dev/null && helm show chart keyporttech/dynamodb | yq - read 'version')
 REGISTRY_TAG=${REGISTRY}/${CHART}:${VERSION}
 CWD = $(shell pwd)
-CURRENT_BRANCH = $(shell git symbolic-ref --short HEAD)
+CURRENT_BRANCH = ${GIT-REF}
 
 lint:
 	@echo "linting..."
@@ -61,11 +61,11 @@ publish-public-repository:
 	./releaseChart.sh $(CHART) $(VERSION) .;
 .PHONY: publish-public-repository
 
-
 deploy: publish-local-registry publish-public-repository
 	git remote add upstream git@github.com:keyporttech/helm-$(CHART).git
 	git config --global user.email "bot@keyporttech.com"
 	git config --global user.name "keyporttech-bot"
 	git fetch upstream master
+	git fetch origin --unshallow
 	git push -u upstream $(CURRENT_BRANCH):master --force-with-lease
 .PHONY:deploy
