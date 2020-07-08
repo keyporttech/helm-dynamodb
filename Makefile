@@ -61,11 +61,13 @@ publish-public-repository:
 	./releaseChart.sh $(CHART) $(VERSION) .;
 .PHONY: publish-public-repository
 
-deploy: publish-local-registry publish-public-repository
-	git remote add upstream git@github.com:keyporttech/helm-$(CHART).git
-	git config --global user.email "bot@keyporttech.com"
-	git config --global user.name "keyporttech-bot"
-	git fetch upstream master
-	git fetch origin --unshallow
-	git push -u upstream master:master --force-with-lease
+deploy: #publish-local-registry publish-public-repository
+	rm -rf /tmp/helm-$(CHART)
+	git clone git@github.com:keyporttech/helm-$(CHART).git /tmp/helm-$(CHART)
+	cd /tmp/helm-$(CHART) && git remote add downstream ssh://git@git.keyporttech.com:30222/keyporttech/helm-dynamodb.git
+	cd /tmp/helm-$(CHART) && git config --global user.email "bot@keyporttech.com"
+	cd /tmp/helm-$(CHART) && git config --global user.name "keyporttech-bot"
+	cd /tmp/helm-$(CHART) && git fetch downstream master
+	cd /tmp/helm-$(CHART) && git fetch origin
+	cd /tmp/helm-$(CHART) && git push -u origin downstream/master:master --force-with-lease
 .PHONY:deploy
