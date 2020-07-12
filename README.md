@@ -86,69 +86,36 @@ storageClassName: ""
 
 | Parameter                  | Description                                     | Default                                                    |
 | -----------------------    | ---------------------------------------------   | ---------------------------------------------------------- |
-| `dynamodb.image.repository`                    | `dynamo db local image`                     | `amazon/dynamodb-local`
-  |
-| `dynamodb.image.pullPolicy`                    | `image pull policy`                     | `IfNotPresent`
-  |  
-| `dynamodb.image.tag`                    | `image tag`                     | `1.12.0`
-  |
-| `admin.image.repository`                    | `admin web UI` image                     | `aaronshaf/dynamodb-admin`
-  |
-| `admin.image.pullPolicy`                    | `image pull policy`                     | `IfNotPresent`
-  |  
-| `admin.image.tag`                    | `image tag`                     | `latest`
-  |
-| `imagePullSecrets`                    | `image pull secrets`                     | ``
-  |
-| `nameOverride`                    | `name override`                     | ``
-  |
-| `fullnameOverride`                    | `fullname override`                     | ``
-  |
-| `serviceAccount.create`                    | `creates service account if true`                     | `true`
-  |
-| `serviceAccount.annotations`                    | `service account annotations if created`                     | ``
-  |
-| `serviceAccount.name`                    | `service account name if created`                     | ``
-  |
-| `podAnnotations`                    | `pod annotations`                     | ``
-  |
-| `podSecurityContext`                    | `pod security context`                     | ``
-  |
-| `securityContext`                    | `security context`                     | ``
-  |
-| `service.type`                    | `k8s service type`                     | `ClusterIP`
-  |
-| `ingress.enabled`                    | `enable ingress`                     | `false`
-  |
-| `ingress.annotations'                    | `ingress annotations`                     | `{}`
-  |
-| `ingress.tls`                    | `list of tls secret names and known_hosts`                     | `[]`
-  |
-| `ingress.host`                    | `ingress host`                     | ``
-  |
-| `autoscaling.enabled`                    | `enable autoscaling`                     | `false`
-  |
-| `autoscaling.minReplicas`                    | `min replicas`                     | `1`
-|
-| `autoscaling.maxReplicas`                    | `max replicas`                     | `100`
-|
-| `autoscaling.targetCPUUtilizationPercentage`                    | `autoscaling target CPU`                     | `80`
-|
-| `autoscaling.targetMemoryUtilizationPercentage`                    | `autoscaling target memory`                     | `unset`
-|
-| `resources`                    | `pod resources`                     | `[]`
-  |
-| `nodeSelector`                    | `node selector`                     | `{}`
-  |
-| `tolerations`                    | `node selector`                     | `[]`
-  |
-| `affinity`                    | `affinity`                     | `{}`
-  |
-| `storageType`                    | `type of storage pvc, directVolume emptyDir`                     | `emptyDir`
-  |
-| `storage`                    | `size of pvc storage`                     | `unset`
-|
-| `storageClassName`                    | `pvc storage class name`                     | `unset`
-|
-| `directVolume`                    | `yaml definings k8s volume`                     | `unset`
-  |
+| `dynamodb.image.repository` | `dynamo db local image` | `amazon/dynamodb-local` |
+| `dynamodb.image.pullPolicy` | `image pull policy` | `IfNotPresent` |  
+| `dynamodb.image.tag` | `image tag` | `1.12.0` |
+| `admin.image.repository` | `admin web UI image` | `aaronshaf/dynamodb-admin` |
+| `admin.image.pullPolicy` | `image pull policy` | `IfNotPresent` |  
+| `admin.image.tag` | `image tag`| `latest`|
+| `imagePullSecrets` | `image pull secrets` | `-` |
+| `nameOverride` | `name override` | `-` |
+| `fullnameOverride` | `fullname override` | `-` |
+| `serviceAccount.create` | `creates service account if true` | `true` |
+| `serviceAccount.annotations` | `service account annotations if created` | `-` |
+| `serviceAccount.name` | `service account name if created` | `-` |
+| `podAnnotations` | `pod annotations` | `-` |
+| `podSecurityContext` | `pod security context` | `-` |
+| `securityContext` | `security context` | `-` |
+| `service.type` | `k8s service type` | `ClusterIP` |
+| `ingress.enabled` | `enable ingress` | `false` |
+| `ingress.annotations` | `ingress annotations` | `{}` |
+| `ingress.tls` | `list of tls secret names and known_hosts` | `[]` |
+| `ingress.host` | `ingress host` | `-` |
+| `autoscaling.enabled` | `enable autoscaling` | `false` |
+| `autoscaling.minReplicas` | `min replicas` | `1` |
+| `autoscaling.maxReplicas` | `max replicas` | `100` |
+| `autoscaling.targetCPUUtilizationPercentage` | `autoscaling target CPU` | `80` |
+| `autoscaling.targetMemoryUtilizationPercentage` | `autoscaling target memory` | `unset` |
+| `resources` | `pod resources` | `[]` |
+| `nodeSelector` | `node selector` | `{}` |
+| `tolerations` | `node selector` | `[]` |
+| `affinity` | `affinity` | `{}` |
+| `storageType` | `type of storage pvc, directVolume, emptyDir` | `emptyDir` |
+| `storage` | `size of pvc storage` | `unset` |
+| `storageClassName` | `pvc storage class name` | `unset` |
+| `directVolume` | `yaml definings k8s volume` | `unset` |
