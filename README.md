@@ -92,20 +92,20 @@ storageClassName: ""
 | `admin.image.repository` | `admin web UI image` | `aaronshaf/dynamodb-admin` |
 | `admin.image.pullPolicy` | `image pull policy` | `IfNotPresent` |  
 | `admin.image.tag` | `image tag`| `latest`|
-| `imagePullSecrets` | `image pull secrets` | `` |
-| `nameOverride` | `name override` | `` |
-| `fullnameOverride` | `fullname override` | `` |
+| `imagePullSecrets` | `image pull secrets` | `-` |
+| `nameOverride` | `name override` | `-` |
+| `fullnameOverride` | `fullname override` | `-` |
 | `serviceAccount.create` | `creates service account if true` | `true` |
-| `serviceAccount.annotations` | `service account annotations if created` | `` |
-| `serviceAccount.name` | `service account name if created` | `` |
-| `podAnnotations` | `pod annotations` | `` |
-| `podSecurityContext` | `pod security context` | `` |
-| `securityContext` | `security context` | `` |
+| `serviceAccount.annotations` | `service account annotations if created` | `-` |
+| `serviceAccount.name` | `service account name if created` | `-` |
+| `podAnnotations` | `pod annotations` | `-` |
+| `podSecurityContext` | `pod security context` | `-` |
+| `securityContext` | `security context` | `-` |
 | `service.type` | `k8s service type` | `ClusterIP` |
 | `ingress.enabled` | `enable ingress` | `false` |
 | `ingress.annotations` | `ingress annotations` | `{}` |
 | `ingress.tls` | `list of tls secret names and known_hosts` | `[]` |
-| `ingress.host` | `ingress host` | `` |
+| `ingress.host` | `ingress host` | `-` |
 | `autoscaling.enabled` | `enable autoscaling` | `false` |
 | `autoscaling.minReplicas` | `min replicas` | `1` |
 | `autoscaling.maxReplicas` | `max replicas` | `100` |
