@@ -87,7 +87,7 @@ storageClassName: ""
 | Parameter                  | Description                                     | Default                                                    |
 | -----------------------    | ---------------------------------------------   | ---------------------------------------------------------- |
 | `dynamodb.image.repository` | `dynamo db local image` | `amazon/dynamodb-local` |
-|  `dynamodb.image.pullPolicy` | `image pull policy` | `IfNotPresent` |  
+| `dynamodb.image.pullPolicy` | `image pull policy` | `IfNotPresent` |  
 | `dynamodb.image.tag` | `image tag` | `1.12.0` |
 | `admin.image.repository` | `admin web UI image` | `aaronshaf/dynamodb-admin` |
 | `admin.image.pullPolicy` | `image pull policy` | `IfNotPresent` |  
@@ -103,7 +103,7 @@ storageClassName: ""
 | `securityContext` | `security context` | `` |
 | `service.type` | `k8s service type` | `ClusterIP` |
 | `ingress.enabled` | `enable ingress` | `false` |
-| `ingress.annotations' | `ingress annotations` | `{}` |
+| `ingress.annotations` | `ingress annotations` | `{}` |
 | `ingress.tls` | `list of tls secret names and known_hosts` | `[]` |
 | `ingress.host` | `ingress host` | `` |
 | `autoscaling.enabled` | `enable autoscaling` | `false` |
