@@ -7,7 +7,7 @@ The intent is to provide a quick easy way to enable a local dynamo db instance f
 ## prerequisites
 
 * helm 3
-@ a modern working k8s cluster
+* a modern working k8s cluster
 
 ## Install
 
@@ -17,12 +17,15 @@ helm install my-release keyporttech/dynamo-db
 ```
 or clone this repo and install from the file system.
 
-# Contributing
+## Contributing
+Please see [keyporttech charts contribution guidelines](https://github.com/keyporttech/helm-charts/blob/master/CONTRIBUTING.md)
 
-Contributions are welcome, but please note that all pull-requests must Pass CI. The Makefile contains targets that execute cicd tooling locally. This includes the [chart-testing](https://github.com/helm/chart-testing) and [chart-releaser](https://github.com/helm/chart-releaser) tooling provided by helm.
+### Running the cicd tooling locally
 
-```
-  make build
+This chart uses a Makefile to run CICD. To run:
+
+```bash
+make build
 ```
 
 ## Values.yaml Configuration
