@@ -1,3 +1,4 @@
+{{- if eq .Values.storageType "pvc" }}
 # Copyright 2020 Keyporttech Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +14,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-{{- if eq .Values.storageType "pvc" }}
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

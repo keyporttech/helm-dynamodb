@@ -3,5 +3,5 @@ remote: origin
 chart-dirs:
   - helm-charts/charts
 chart-repos:
-  - keyporttech=https://keyporttech.github.io/helm-charts
+  - keyporttech_test=https://keyporttech.github.io/helm-charts
 helm-extra-args: --timeout 600s
