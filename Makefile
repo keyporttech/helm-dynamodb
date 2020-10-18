@@ -62,7 +62,7 @@ publish-public-repository:
 	./releaseChart.sh $(CHART) $(VERSION) $(CWD);
 .PHONY: publish-public-repository
 
-deploy: #publish-local-registry publish-public-repository
+deploy: publish-local-registry publish-public-repository
 	rm -rf /tmp/helm-$(CHART)
 	git clone git@github.com:keyporttech/helm-$(CHART).git /tmp/helm-$(CHART)
 	cd /tmp/helm-$(CHART) && git remote add downstream ssh://git@ssh.git.keyporttech.com/keyporttech/helm-dynamodb.git
